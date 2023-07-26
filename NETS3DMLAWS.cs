@@ -2,7 +2,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.S3;
 using Amazon.S3.Model;
-using Newtonsoft.Json;
+using Newtons.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,28 +11,20 @@ using System.Text;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
-public class User
+namespace ConsoleAppDBCloud
 {
-    public string Email { get; set; }
-    public string FullName { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public DateTime Date { get; set; }
-    public string Token { get; set; }
-}
-
-public class Function
+public class AWSS3DBModel
 {
     private readonly IAmazonS3 _s3Client;
     private const string S3BucketName = "YOUR_S3_BUCKET_NAME";
     private const string S3ObjectKey = "YOUR_S3_OBJECT_KEY";
 
-    public Function(IAmazonS3 s3Client)
+    public AWSS3DBModel(IAmazonS3 s3Client)
     {
         _s3Client = s3Client;
     }
 
-    public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest input, ILambdaContext context)
+    public APIGatewayProxyResponse AWSS3DBModelHandler(APIGatewayProxyRequest input, ILambdaContext context)
     {
         try
         {
@@ -129,4 +121,5 @@ public class Function
         // Your token generation logic here
         return Guid.NewGuid().ToString();
     }
+}
 }
